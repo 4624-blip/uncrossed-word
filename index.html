@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#eee8ff">
+<title>Uncrossed Word | Vocabulary Puzzle</title>
+<style>
+:root{--purple:#8b70d6;--purple2:#6e55bb;--lav:#eee8ff;--blue:#dff3ff;--cream:#fff7df;--pink:#ffe5ef;--ink:#37324b;--muted:#77718b;--green:#39a982;--red:#e56e83;--shadow:0 14px 35px rgba(91,74,139,.13)}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#f7f3ff,#eff9ff 55%,#fff9e9);min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}button:focus-visible{outline:3px solid #f3b84b;outline-offset:3px}
+.app{width:min(960px,94%);margin:0 auto;padding:24px 0 40px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,#b9a5f4,#8c77d8);display:grid;place-items:center;color:white;font-size:25px;box-shadow:var(--shadow)}
+.brand h1{font-size:clamp(20px,4vw,28px);margin:0;letter-spacing:.3px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.pill{background:white;border:1px solid #eee9fa;border-radius:999px;padding:9px 13px;font-size:13px;color:var(--muted)}
+.panel{background:rgba(255,255,255,.9);border:1px solid #eee9fa;border-radius:28px;padding:clamp(18px,4vw,34px);box-shadow:var(--shadow)}
+.hero{text-align:center;overflow:hidden;position:relative}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;opacity:.65;z-index:0}.hero:before{width:180px;height:180px;background:var(--pink);left:-75px;top:-85px}.hero:after{width:190px;height:190px;background:var(--blue);right:-80px;bottom:-100px}
+.hero>*{position:relative;z-index:1}.mascots{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.mascot{width:58px;height:58px;border-radius:19px;display:grid;place-items:center;font-size:30px;box-shadow:0 6px 15px #51417a16}.m1{background:#e7e0ff}.m2{background:#fff0d4}.m3{background:#ffe5ef}.m4{background:#dff4ff}.m5{background:#e1f6e9}
+h2{font-size:clamp(25px,5vw,38px);margin:8px 0}.subtitle{color:var(--muted);line-height:1.7;max-width:620px;margin:0 auto 22px}
+.primary,.secondary,.ghost{border-radius:15px;padding:13px 22px;font-weight:750;transition:.15s}.primary{background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;box-shadow:0 8px 18px #8b70d644}.primary:hover{transform:translateY(-2px)}.secondary{background:var(--lav);color:var(--purple2)}.ghost{background:#f6f4fb;color:var(--ink)}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;text-align:left}.how article{padding:15px;border-radius:18px;background:#faf9ff}.how b{display:block;margin-bottom:5px}.how p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.game-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.stats{display:flex;gap:8px;flex-wrap:wrap}.stat{background:#f7f5fc;border-radius:13px;padding:9px 12px;font-size:13px}.stat strong{color:var(--purple2)}
+.progress{height:9px;background:#f0edf7;border-radius:99px;overflow:hidden;margin:12px 0 20px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#a894ed,#73c5dc);transition:width .3s}
+.question{text-align:center}.level-tag{display:inline-block;padding:6px 12px;border-radius:99px;background:var(--cream);font-size:12px;font-weight:800;color:#9b7830}.definition{font-size:clamp(20px,4vw,27px);font-weight:800;margin:14px auto 5px;line-height:1.45}.example{color:var(--muted);font-size:14px;margin:0 auto 18px}
+.answer{min-height:58px;display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;margin:18px 0}.slot{width:clamp(35px,7vw,48px);height:48px;border:2px dashed #d6cfee;border-radius:12px;background:#fbfaff;display:grid;place-items:center;font-weight:850;font-size:21px;color:var(--purple2)}.slot.filled{border-style:solid;background:#eee9ff}
+.letters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 20px}.letter{width:clamp(39px,8vw,52px);height:52px;border-radius:14px;background:white;color:var(--ink);font-size:21px;font-weight:850;box-shadow:0 4px 0 #e6e1f0;border:1px solid #eee9f7}.letter:hover{transform:translateY(-2px)}.letter.used{opacity:.25;cursor:default;transform:none}
+.feedback{min-height:28px;font-weight:750;margin:6px 0}.good{color:var(--green)}.bad{color:var(--red)}
+.game-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}.small-note{font-size:12px;color:var(--muted);margin-top:12px}
+.timer-wrap{height:8px;background:#f3eff8;border-radius:99px;overflow:hidden;width:140px}.timer-bar{height:100%;width:100%;background:#75c5a7;transition:width .2s linear}.timer-label{font-size:13px;font-weight:800;min-width:42px}
+.modal{text-align:center}.result-icon{font-size:58px}.score-big{font-size:48px;font-weight:900;color:var(--purple2);margin:5px}.review{margin:18px auto 0;max-width:600px;text-align:left;background:#faf9ff;border-radius:16px;padding:14px}.review ul{margin:8px 0 0;padding-left:20px;color:var(--muted);line-height:1.8}
+.hidden{display:none!important}.footer{text-align:center;color:#9b95ad;font-size:12px;margin-top:18px}
+@media(max-width:650px){.app{padding-top:14px}.how{grid-template-columns:1fr}.panel{border-radius:22px}.top{align-items:flex-start}.pill{font-size:11px}.game-head{align-items:flex-start}.timer-wrap{width:95px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="logo">W</div><div><h1>Uncrossed Word</h1><p>English Vocabulary Puzzle</p></div></div>
+    <div class="pill">🎓 ม.ปลาย • เล่นคนเดียว</div>
+  </header>
+
+  <main>
+    <section id="startScreen" class="panel hero">
+      <div class="mascots" aria-label="เพื่อนมาสคอตน่ารัก">
+        <div class="mascot m1">🐨</div><div class="mascot m2">🐑</div><div class="mascot m3">🐰</div><div class="mascot m4">🐥</div><div class="mascot m5">🐻</div>
+      </div>
+      <h2>พร้อมปลดล็อกคลังคำศัพท์หรือยัง?</h2>
+      <p class="subtitle">อ่านคำใบ้ภาษาไทย แล้วเลือกตัวอักษรที่สลับตำแหน่งมาเรียงให้เป็นคำศัพท์ภาษาอังกฤษ เก็บคะแนนและผ่านทั้ง 5 ด่าน!</p>
+      <div class="actions"><button class="primary" id="startBtn">เริ่มเกม Start Game ✨</button><button class="secondary" id="howBtn">วิธีเล่น</button><button class="ghost" id="soundBtn" aria-pressed="true">🔊 เสียงเปิด</button></div>
+      <div id="howPanel" class="how hidden">
+        <article><b>1. อ่านคำใบ้</b><p>อ่านความหมายภาษาไทยและตัวอย่างประโยค แล้วนึกถึงคำศัพท์ที่ตรงกัน</p></article>
+        <article><b>2. เรียงตัวอักษร</b><p>แตะตัวอักษรด้านล่างเพื่อเติมช่องคำตอบ แตะช่องคำตอบเพื่อนำตัวอักษรกลับได้</p></article>
+        <article><b>3. ตรวจคำตอบ</b><p>กดตรวจคำตอบ ใช้ Hint เปิดตัวอักษรแรกได้ แต่ใช้คำใบ้เกิน 2 ครั้งจะถูกหักคะแนน</p></article>
+      </div>
+      <p class="small-note">⏱️ ข้อละ 20 วินาที • 5 ด่าน • คะแนนเต็ม 100%</p>
+    </section>
+
+    <section id="gameScreen" class="panel hidden">
+      <div class="game-head">
+        <div class="stats">
+          <div class="stat">ด่าน <strong id="levelText">1/5</strong></div>
+          <div class="stat">ข้อ <strong id="questionText">1/3</strong></div>
+          <div class="stat">คะแนน <strong id="scoreText">0</strong></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px"><span class="timer-label" id="timerText">20 วิ</span><div class="timer-wrap"><div class="timer-bar" id="timerBar"></div></div></div>
+      </div>
+      <div class="progress"><span id="progressBar"></span></div>
+      <div class="question">
+        <span class="level-tag" id="levelName">LEVEL 1 • BEGINNER</span>
+        <div class="definition" id="definition">ความหมายภาษาไทย</div>
+        <p class="example" id="example">ตัวอย่างประโยค</p>
+      </div>
+      <div class="answer" id="answerSlots" aria-label="ช่องคำตอบ"></div>
+      <div class="letters" id="letterBank" aria-label="ตัวอักษรให้เลือก"></div>
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+      <div class="game-actions">
+        <button class="secondary" id="hintBtn">💡 Hint</button>
+        <button class="ghost" id="clearBtn">ล้างคำตอบ</button>
+        <button class="primary" id="submitBtn">ตรวจคำตอบ ✓</button>
+      </div>
+      <p class="small-note" id="hintInfo">คำใบ้ที่ใช้: 0 ครั้ง • ใช้คำใบ้เกิน 2 ครั้งจะถูกหักคะแนน</p>
+    </section>
+
+    <section id="resultScreen" class="panel modal hidden">
+      <div class="result-icon" id="resultIcon">🏆</div>
+      <h2 id="resultTitle">จบเกมแล้ว!</h2>
+      <div class="score-big" id="finalPercent">0%</div>
+      <p class="subtitle" id="resultMessage"></p>
+      <div class="stats" style="justify-content:center">
+        <div class="stat">ตอบถูก <strong id="correctCount">0</strong></div>
+        <div class="stat">ทั้งหมด <strong id="totalCount">0</strong></div>
+        <div class="stat">คะแนน <strong id="finalScore">0</strong></div>
+      </div>
+      <div class="review"><b>📚 คำศัพท์ที่ควรทบทวน</b><ul id="reviewList"></ul></div>
+      <p class="small-note" id="bestScore"></p>
+      <div class="actions"><button class="primary" id="restartBtn">เล่นอีกครั้ง ↻</button></div>
+    </section>
+  </main>
+  <div class="footer">Uncrossed Word • Learn a word, unlock a world ✨</div>
+</div>
+<script>
+/* =========================================================
+   Uncrossed Word — เกมคำศัพท์ภาษาอังกฤษแบบไฟล์เดียว
+   ครูสามารถแก้ไข/เพิ่มคำศัพท์ได้ที่ตัวแปร WORDS ด้านล่าง
+   ========================================================= */
+const WORDS = [
+ {word:"achieve",meaning:"บรรลุผลสำเร็จ",example:"You can achieve your goals with practice.",level:1},
+ {word:"benefit",meaning:"ประโยชน์",example:"Exercise has many benefits.",level:1},
+ {word:"curious",meaning:"อยากรู้อยากเห็น",example:"The curious student asked a question.",level:1},
+ {word:"develop",meaning:"พัฒนา",example:"Reading helps develop your skills.",level:2},
+ {word:"environment",meaning:"สิ่งแวดล้อม",example:"We should protect the environment.",level:2},
+ {word:"decision",meaning:"การตัดสินใจ",example:"It was a difficult decision.",level:2},
+ {word:"opportunity",meaning:"โอกาส",example:"This is a great opportunity to learn.",level:3},
+ {word:"significant",meaning:"สำคัญอย่างยิ่ง / มีนัยสำคัญ",example:"Education has a significant impact.",level:3},
+ {word:"consequence",meaning:"ผลที่ตามมา",example:"Every action has a consequence.",level:4},
+ {word:"perspective",meaning:"มุมมอง / ทัศนคติ",example:"Try to see the issue from another perspective.",level:4},
+ {word:" determine",meaning:"กำหนด / ตัดสินใจ",example:"Your effort can determine the result.",level:4},
+ {word:"sustainable",meaning:"ยั่งยืน",example:"We need sustainable solutions.",level:5},
+ {word:"interpret",meaning:"ตีความ",example:"Students interpret the information.",level:5},
+ {word:"approximately",meaning:"ประมาณ / โดยประมาณ",example:"The journey takes approximately one hour.",level:5},
+ {word:"essential",meaning:"จำเป็น / สำคัญ",example:"Water is essential for life.",level:5}
+].map(x=>({...x,word:x.word.trim().toLowerCase()}));
+
+const LEVEL_NAMES=["BEGINNER","ELEMENTARY","INTERMEDIATE","ADVANCED","CHALLENGE"];
+const QUESTIONS_PER_LEVEL=3, TIME_LIMIT=20;
+let order=[],index=0,selected=[],hintCount=0,score=0,correct=0,attempted=0,missed=[],timer=null,timeLeft=TIME_LIMIT,soundOn=true,locked=false;
+
+const $=id=>document.getElementById(id);
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function current(){return order[index];}
+function playTone(freq=600,duration=.12,type="sine"){
+ if(!soundOn)return;try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=type;osc.frequency.value=freq;gain.gain.setValueAtTime(.08,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+duration);osc.connect(gain);gain.connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+duration);osc.onended=()=>ctx.close();}catch(e){}
+}
+function startGame(){
+ order=shuffle(WORDS);index=0;selected=[];hintCount=0;score=0;correct=0;attempted=0;missed=[];locked=false;
+ $("startScreen").classList.add("hidden");$("resultScreen").classList.add("hidden");$("gameScreen").classList.remove("hidden");renderQuestion();
+}
+function renderQuestion(){
+ clearInterval(timer);locked=false;selected=[];hintCount=0;timeLeft=TIME_LIMIT;
+ const q=current(),level=Math.floor(index/QUESTIONS_PER_LEVEL);
+ $("levelText").textContent=(level+1)+"/5";$("questionText").textContent=((index%QUESTIONS_PER_LEVEL)+1)+"/"+QUESTIONS_PER_LEVEL;
+ $("scoreText").textContent=score;$("levelName").textContent=`LEVEL ${level+1} • ${LEVEL_NAMES[level]}`;
+ $("definition").textContent=q.meaning;$("example").textContent="ตัวอย่าง: "+q.example;
+ $("feedback").textContent="";$("feedback").className="feedback";$("hintInfo").textContent="คำใบ้ที่ใช้: 0 ครั้ง • ใช้คำใบ้เกิน 2 ครั้งจะถูกหักคะแนน";
+ $("progressBar").style.width=(index/WORDS.length*100)+"%";
+ $("answerSlots").innerHTML="";for(let i=0;i<q.word.length;i++){const slot=document.createElement("button");slot.className="slot";slot.type="button";slot.setAttribute("aria-label","ช่องตัวอักษร "+(i+1));slot.addEventListener("click",()=>removeLetter(i));$("answerSlots").appendChild(slot);}
+ const chars=shuffle([...q.word]);$("letterBank").innerHTML="";
+ chars.forEach((ch,i)=>{const b=document.createElement("button");b.className="letter";b.textContent=ch.toUpperCase();b.type="button";b.dataset.index=i;b.addEventListener("click",()=>chooseLetter(i,ch,b));$("letterBank").appendChild(b);});
+ updateTimer();timer=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft<=0){clearInterval(timer);timeOut();}},1000);
+}
+function updateTimer(){$("timerText").textContent=timeLeft+" วิ";$("timerBar").style.width=(timeLeft/TIME_LIMIT*100)+"%";$("timerBar").style.background=timeLeft<=6?"#e56e83":"#75c5a7";}
+function chooseLetter(i,ch,button){if(locked||button.classList.contains("used")||selected.length>=current().word.length)return;selected.push({i,ch});button.classList.add("used");drawSlots();playTone(480,.06);}
+function drawSlots(){const slots=[...$("answerSlots").children];slots.forEach((s,i)=>{s.textContent=selected[i]?selected[i].ch.toUpperCase():"";s.classList.toggle("filled",!!selected[i]);});}
+function removeLetter(slotIndex){if(locked||!selected[slotIndex])return;const item=selected.splice(slotIndex,1)[0];const b=$("letterBank").querySelector(`[data-index="${item.i}"]`);if(b)b.classList.remove("used");drawSlots();}
+function clearAnswer(){if(locked)return;selected.forEach(x=>{const b=$("letterBank").querySelector(`[data-index="${x.i}"]`);if(b)b.classList.remove("used");});selected=[];drawSlots();}
+function hint(){
+ if(locked)return;hintCount++;const q=current(),needed=q.word[0];
+ if(selected.length===0){const b=[...$("letterBank").children].find(x=>x.textContent.toLowerCase()===needed&&!x.classList.contains("used"));if(b)chooseLetter(Number(b.dataset.index),needed,b);}
+ else if(selected[0].ch!==needed){const existing=selected.findIndex(x=>x.ch===needed);if(existing>=0){const old=selected.splice(existing,1)[0];const ob=$("letterBank").querySelector(`[data-index="${old.i}"]`);if(ob)ob.classList.remove("used");}const b=[...$("letterBank").children].find(x=>x.textContent.toLowerCase()===needed&&!x.classList.contains("used"));if(b)chooseLetter(Number(b.dataset.index),needed,b);}
+ $("hintInfo").textContent=`คำใบ้ที่ใช้: ${hintCount} ครั้ง`+(hintCount>2?" • คะแนนข้อนี้ถูกหัก 5 คะแนน":"");$("feedback").textContent="💡 คำใบ้: คำศัพท์ขึ้นต้นด้วย "+needed.toUpperCase();$("feedback").className="feedback";playTone(720,.1);
+}
+function submit(){
+ if(locked)return;if(selected.length!==current().word.length){$("feedback").textContent="เลือกตัวอักษรให้ครบก่อนนะ";$("feedback").className="feedback bad";return;}
+ const answer=selected.map(x=>x.ch).join("").toLowerCase(),q=current();attempted++;
+ if(answer===q.word){correct++;let earned=10+(timeLeft>10?5:0)-(hintCount>2?5:0);earned=Math.max(0,earned);score+=earned;$("scoreText").textContent=score;$("feedback").textContent=`ถูกต้อง! เก่งมาก 🎉 +${earned} คะแนน`;$("feedback").className="feedback good";playTone(820,.18);locked=true;clearInterval(timer);setTimeout(nextQuestion,1100);}
+ else{$("feedback").textContent="ยังไม่ถูกต้อง ลองสลับตัวอักษรอีกครั้งนะ 💜";$("feedback").className="feedback bad";playTone(220,.15,"triangle");}
+}
+function timeOut(){if(locked)return;attempted++;missed.push(current());locked=true;$("feedback").textContent="หมดเวลาแล้ว! คำตอบคือ "+current().word.toUpperCase();$("feedback").className="feedback bad";playTone(180,.25,"triangle");setTimeout(nextQuestion,1500);}
+function nextQuestion(){index++;if(index>=WORDS.length)finishGame();else renderQuestion();}
+function finishGame(){
+ clearInterval(timer);$("gameScreen").classList.add("hidden");$("resultScreen").classList.remove("hidden");
+ const percent=Math.round(correct/WORDS.length*100),won=percent>=80;
+ $("resultIcon").textContent=won?"🏆":"🌱";$("resultTitle").textContent=won?"ยอดเยี่ยม! คุณผ่านทุกด่านแล้ว":"จบเกมแล้ว มาฝึกต่อกันอีกนิดนะ";
+ $("finalPercent").textContent=percent+"%";$("resultMessage").textContent=won?"คุณทำคะแนนได้ตามเกณฑ์ 80% ขอแสดงความยินดี!":"ลองทบทวนคำศัพท์ที่ยังไม่แม่น แล้วกลับมาเล่นอีกครั้งเพื่อทำคะแนนให้ดีขึ้น";
+ $("correctCount").textContent=correct;$("totalCount").textContent=WORDS.length;$("finalScore").textContent=score;
+ const review=$("reviewList");review.innerHTML="";const wrong=missed.concat(order.filter((w,i)=>i<order.length&&!wasCorrect(w)));
+ const unique=[...new Map(wrong.map(w=>[w.word,w])).values()];if(!unique.length){const li=document.createElement("li");li.textContent="ยอดเยี่ยม! ไม่มีคำศัพท์ที่ต้องทบทวนจากรอบนี้";review.appendChild(li);}else unique.forEach(w=>{const li=document.createElement("li");li.textContent=`${w.word.toUpperCase()} — ${w.meaning}`;review.appendChild(li);});
+ const best=Math.max(score,Number(localStorage.getItem("uncrossedBest")||0));localStorage.setItem("uncrossedBest",String(best));$("bestScore").textContent="🏅 คะแนนสูงสุดที่บันทึกไว้ในอุปกรณ์นี้: "+best;
+}
+function wasCorrect(w){return correctWords.has(w.word)}
+const correctWords=new Set();
+const originalSubmit=submit;
+function submitTracked(){const before=correct;originalSubmit();if(correct>before)correctWords.add(current().word);}
+$("startBtn").addEventListener("click",()=>{correctWords.clear();startGame();});
+$("restartBtn").addEventListener("click",()=>{correctWords.clear();startGame();});
+$("howBtn").addEventListener("click",()=>$("howPanel").classList.toggle("hidden"));
+$("soundBtn").addEventListener("click",()=>{soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔊 เสียงเปิด":"🔇 เสียงปิด";$("soundBtn").setAttribute("aria-pressed",String(soundOn));});
+$("hintBtn").addEventListener("click",hint);$("clearBtn").addEventListener("click",clearAnswer);$("submitBtn").addEventListener("click",submitTracked);
+</script>
+</body>
+</html>
